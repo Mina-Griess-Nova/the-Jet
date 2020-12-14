@@ -1,0 +1,137 @@
+img{
+	max-width: 100%;
+    height: auto;
+}
+
+
+
+.bg-img {
+	background-image: url('https://www.dishdivvy.com/wp-content/uploads/2017/07/cook-with-us-header.jpg?id=959');
+	background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    height: auto;
+    width: 100%;
+}
+
+.bg-img h3 {
+	font-size: 24px;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: none;
+    margin-bottom: 90px;
+    font-family: Nunito;
+}
+
+.bg-img h1 {
+	margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    color: #ffffff;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    font-family: Nunito;
+    text-align: center;
+}
+
+.margin8 {
+	margin: 30px;
+}
+
+.spa-line {
+    border-top-width: 1px;
+    border-style: ridge;
+    border-color: #f4774f;
+    height: 6px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+.tittle {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: inherit;
+}
+
+.tittle-text {
+	padding: 0 35px;
+    display: inline-block;
+    vertical-align: baseline;
+    position: relative;
+}
+
+.content1 {
+    color: #535353;
+    padding-top: 5px;
+}
+
+.sm-img1 {
+	text-align: center;
+}
+
+.sm-img1 img {
+	border-radius: 140px;
+}
+
+.sm-img2 {
+	text-align: center;
+}
+
+.sm-img2 img {
+	border-radius: 140px;
+}
+
+.sm-img3 {
+	text-align: center;
+}
+
+.sm-img3 img {
+	border-radius: 140px;
+}
+
+
+
+.bg-img1 {
+	background-image: url('https://www.dishdivvy.com/wp-content/uploads/2017/07/dd-fork-spoon-pattern_200px.jpg?id=127');
+    background-repeat:repeat !important;
+    height: auto;
+    width: 100%;
+}
+
+/* .sm-img4 img {
+	width: 220px;
+    height: 210px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 30px;
+    margin-left: 60px;
+} */
+
+
+
+.sm-img4 h4 {
+	padding-top: 45px;
+	font-size: 18px;
+    color: #404040;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.sm-img4 p {
+	padding-top: 10px;
+	font-size: 16px;
+    color: #3a3a3a;
+    line-height: 1.66em;
+}
+.container{
+    width: 80%;
+}
+.footer{
+    padding: 0;
+}
+
+section{
+    margin:  30px 0 30px;
+}

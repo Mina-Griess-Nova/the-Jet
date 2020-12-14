@@ -1,0 +1,48 @@
+.container{
+    width: 90%
+}
+.gift-card{
+border-top: 1px solid #C5C5C5;
+border-bottom: 1px solid #C5C5C5;
+background-color: #FAFAFA;
+overflow: hidden;
+padding: 10px;
+color: #535353
+}
+
+.main{
+    margin-top: 100px
+}
+.main h5{
+    font-weight: bolder;
+    margin-bottom: 40px
+}
+.card{
+    width: 65%;
+    margin:  0 auto;
+
+}
+.card .view{
+    border-radius: 9px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1), 0 1px 16px 0 rgba(0,0,0,0.1), 0 2px 4px 0 rgba(0,0,0,0.1);
+}
+.content {
+    width: 50%;
+    margin:  0 auto;
+    border: solid 1px var(--border-color);
+    border-top: none;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+.content .buy span{
+    background-color: #F4774F !important;
+    color: #fff;
+    border: #F4774F;
+    border-radius: 5px
+}
+.promo a{
+    color: #F4774F;
+    font-size: 15px
+}

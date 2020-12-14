@@ -1,0 +1,188 @@
+.col-md-3, .col-md-6, .col-md-4, .col-md-8,.col-xl-2,.col-xl-9 {
+    padding-left: 0px;
+    padding-right: 0;
+    margin-right: 15px;
+}
+.fa-star {
+    color: #F4774F
+}
+.row,.container{
+   padding: 0
+}
+.homecook{
+    border-top: 1px solid #C5C5C5;
+    border-bottom: 1px solid #C5C5C5;
+    background-color: #FAFAFA;
+    overflow: hidden;
+    padding: 10px;
+    color: #535353
+}
+.profile{
+    color: #535353
+}
+.profile .col-lg-2 img{
+    border-radius: 50%
+}
+.profile .col-lg-2 .follow{
+    color: #F4774F;
+}
+.profile .col-lg-2 .follow .btn,.profile .col-lg-8 .float-right .btn{
+    outline: 1px solid;
+    outline-color: #F4774F
+}
+.profile .col-lg-2 .follow .btn:hover,.profile .col-lg-8 .float-right .btn:hover{
+    background-color: #F4774F;
+    color: #fff
+}
+.profile .rating{
+    margin-top: 40px
+}
+.profile .rating i{
+    color: #F4774F
+}
+.profile .rating span .reviews{
+    text-decoration: underline !important;
+}
+.profile .col-lg-8 h4,.profile .col-lg-8 .btn{
+    display: inline;
+}
+.profile .col-lg-8 h4{
+    float: left
+}
+.profile .col-lg-8 .btn{
+    float: right
+}
+@media (max-width: 575px) {
+    .col-lg-8  .float-right{
+        display: none
+    }
+ }
+ .row .col-md-3 .card{
+     position: relative;
+     overflow: hidden;
+ }
+.row .col-md-3 .rotate{
+    position: absolute;
+    top: 7px;
+    left: -90px;
+    background-color: #F4F2F2;
+    color: #F4774F;
+    transform: rotate(-45deg);
+    font-size: small;
+    padding: 25px 53px 13px 98px;
+}
+.row .col-md-3 .card-body{
+    font-size: 14px;
+}
+.row .col-md-3 .card-body i{
+    color: #F4774F
+}
+.date_slider{
+width: 100%;
+/* border-bottom: 1px solid #C5C5C5; */
+}
+
+
+.day-picker {
+
+--day-width: 45px;
+--day-spacing: 5px;
+--days-visible: 6;
+border: none;
+outline: none;
+display: inline-flex;
+}
+
+.day-picker-overflow {
+overflow: hidden;
+width: calc(var(--day-width) * var(--days-visible) + var(--day-spacing) * var(--days-visible) * 2 );
+}
+
+.day-picker-week {
+list-style: none;
+display: flex;
+padding: 0;
+transition: transform 0.4s;
+}
+
+[name="day-picker"] { /* Hide radio buttons */
+width: 1px;
+height: 1px;
+opacity: 0;
+clip: rect(1px, 1px, 1px, 1px);
+}
+
+.day-value {
+display: block;
+cursor: pointer;
+user-select: none;
+margin: 0 var(--day-spacing);
+width: var(--day-width);
+text-align: center;
+padding: 20px 0;
+transition: 0.3s;
+}
+.day-value:hover{
+background-color: #C5C5C5;
+}
+[name="day-picker"]:checked ~ .day-value {
+color: #000;
+font-weight: bold;
+box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.day-number {
+display: block;
+}
+
+.day-picker-nav {
+cursor: pointer;
+display: block;
+min-height: 100%;
+border: 0;
+background: transparent;
+}
+
+
+.date_slider .day-picker  .day-picker-nav{
+padding-top: 50px;
+}
+.active_date{
+border-bottom: 1px solid #F4774F;
+}
+
+
+
+#map {
+height: 300px;
+width: 60%;
+margin-top: 20px
+}
+.custom-map-control-button {
+appearance: button;
+background-color: #fff;
+border: 0;
+border-radius: 2px;
+box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+cursor: pointer;
+margin: 10px;
+padding: 0 0.5em;
+height: 40px;
+font: 400 18px Roboto, Arial, sans-serif;
+overflow: hidden;
+}
+.custom-map-control-button:hover {
+background: #ebebeb;
+}
+.map-location h6 span{
+color: #F4774F
+}
+@media (max-width: 768px) {
+#map{
+width: 100%
+} }
+
+
+.request-dish .text-center h4{
+font-weight: 500
+}
