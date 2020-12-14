@@ -29,7 +29,7 @@
                     <a href="{{ url('/dashboard/category') }}"><i class="fe fe-user"></i><span>Categories</span></a>
                 </li>
                 <li class="{{ Request::segment(2) == 'cook' ? 'active' : null }}">
-                    <a href="{{ url('/dashboard/cook') }}"><i class="fe fe-user-plus"></i> <span>Cooks</span></a>
+                    <a href="{{ url('/dashboard/cook') }}"><i class="fe fe-user-plus"></i> <span>Vendors</span></a>
                 </li>
                 <li class="{{ Request::segment(2) == 'discount' ? 'active' : null }}">
                     <a href="{{ url('/dashboard/discount') }}"><i class="fe fe-user"></i> <span>Coupons</span></a>

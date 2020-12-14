@@ -44,7 +44,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapWebRoutes();
 
         $this->mapAdminWebRoutes();
 
@@ -58,12 +57,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/frontend/web.php'));
-    }
+   
     protected function mapAdminWebRoutes()
     {
         Route::middleware('web')

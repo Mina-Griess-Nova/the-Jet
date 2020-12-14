@@ -38,7 +38,6 @@ class HomeController extends Controller
             ->where('orders.cook_id',auth()->guard('admin')->user()->id)
             ->groupBy('users.id')
             ->get();
-
             return view('backend.index',compact('orders','users','customers'));
         }
 
