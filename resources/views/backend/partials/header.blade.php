@@ -3,12 +3,12 @@
 
     <!-- Logo -->
     <div class="header-left">
-        <a href="#" class="logo">
+        {{-- <a href="#" class="logo">
             <img src="{{ asset('front/images/msol-logo.png') }}" width="150" alt="Logo">
         </a>
         <a href="#" class="logo logo-small">
             <img src="{{ asset('front/images/msol-logo.png') }}" alt="Logo" width="30" height="30">
-        </a>
+        </a> --}}
     </div>
     <!-- /Logo -->
 
