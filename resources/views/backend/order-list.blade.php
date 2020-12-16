@@ -34,8 +34,88 @@
         </div>
         <!-- /Page Header -->
 
+        <div class="row">
+            <div class="col-xl-2 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                            </span>
+                            <div class="dash-count">
+                                <h3>0</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">pending</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                            </span>
+                            <div class="dash-count">
+                                <h3>0</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">late</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                            </span>
+                            <div class="dash-count">
+                                <h3>0</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">on duty drivers</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon text-primary border-primary">
+                            </span>
+                            <div class="dash-count">
+                                <h3>0</h3>
+                            </div>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h6 class="text-muted">available drivers</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
 
         <div class="row" >
+
             <div class="col-md-12 d-flex">
 
                 <!-- Recent Orders -->
@@ -50,13 +130,21 @@
                                 <thead>
                                     <tr>
                                         <th>Order Number</th>
+                                        <th>Order Time</th>
                                         <th>Customer Name</th>
-                                        <th>Dish Name</th>
+                                        <th>Restaurant Name</th>
                                         <th>Dish Section</th>
                                         <th>Dish price</th>
-                                        <th>Dish Qty</th>
-                                        <th>Order Price</th>
-                                        <th>Order Notes</th>
+                                        <th>Amount</th>
+                                        <th>Location</th>
+                                        <th>Delivery Type</th>
+                                        <th>Amount</th>
+                                        <th>Payment Method</th>
+                                        <th>Delivery Status</th>
+                                        <th>Order Status</th>
+                                        <th>Order Status</th>
+                                        <th>Customer service</th>
+                                        <th>Operations service</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
