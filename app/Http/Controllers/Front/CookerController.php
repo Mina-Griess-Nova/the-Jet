@@ -48,6 +48,7 @@ class CookerController extends Controller
      */
     public function show($id)
     {
+
         $cook=User::find($id);
         $dishes=$cook->dishes;
         return view('front.cooker',compact('cook','dishes'));

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cusine;
+use App\Models\CusineTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as Rule;
 
 class CusineController extends Controller
 {
@@ -38,13 +40,13 @@ class CusineController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:cusines,name',
-        ]);
 
-        $cusine=Cusine::create([
-            'name'=>$request->name
-        ]);
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('cusine_translations','name')]];
+        }
+        $request->validate( $rules);
+        $cusine=Cusine::create( $request->all() );
         return back();
     }
 
@@ -79,17 +81,18 @@ class CusineController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $validation=$request->validate([
-            'name'=>'required|unique:cusines,name',
-        ]);
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('cusine_translations','name')]];
+        }
+        $request->validate( $rules);
 
         $cusine=Cusine::find($id);
-        $cusine->update([
-            'name'=>$request->name
-        ]);
+        $cusine->update(
+            $request->all()
+        );
         $cusine->save();
-        return back();
+        return redirect()->route('cusine.index');
     }
 
     /**
@@ -100,6 +103,7 @@ class CusineController extends Controller
      */
     public function destroy($id)
     {
+        $cusine_trans=CusineTranslation::where('cusine_id',$id)->delete();
         $cusine=Cusine::find($id);
         $cusine->delete();
         return back();

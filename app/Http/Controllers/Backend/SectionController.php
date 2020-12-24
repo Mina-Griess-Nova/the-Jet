@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Section;
+use App\Models\SectionTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as Rule;
 
 class SectionController extends Controller
 {
@@ -37,13 +39,13 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:sections,name',
-        ]);
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('section_translations','name')]];
+        }
+        $request->validate( $rules);
 
-        $cusine=Section::create([
-            'name'=>$request->name
-        ]);
+        $cusine=Section::create($request->all());
         return back();
     }
 
@@ -78,16 +80,16 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:sections,name',
-        ]);
 
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('section_translations','name')]];
+        }
         $section=Section::find($id);
-        $section->update([
-            'name'=>$request->name
-        ]);
+
+        $section->update($request->all());
         $section->save();
-        return back();
+        return redirect()->route('section.index');
     }
 
     /**
@@ -98,6 +100,7 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
+        $section_trans=SectionTranslation::where('section_id',$id)->delete();
         $section=Section::find($id);
         $section->delete();
         return back();

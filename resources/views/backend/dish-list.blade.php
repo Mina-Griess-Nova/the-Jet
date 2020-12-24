@@ -22,15 +22,9 @@
                         <li class="breadcrumb-item active">Dish</li>
                     </ul>
                 </div>
-                @if (auth()->guard('admin')->user()->roles[0]->name =='super_admin')
-                <div class="col-sm-12 col">
-                    <a href="#Add_Dish" data-toggle="modal" class="btn btn-otbokhly float-right mt-2 disabled" >Add</a>
-                </div>
-                @else
                 <div class="col-sm-12 col">
                     <a href="#Add_Dish" data-toggle="modal" class="btn btn-otbokhly float-right mt-2 " >Add</a>
                 </div>
-               @endif
             </div>
 
         </div>
@@ -53,6 +47,7 @@
                                     <tr>
                                         <th> Name</th>
                                         <th> Images</th>
+                                        <th> Cook</th>
                                         <th> Section</th>
                                         <th>Cusine</th>
                                         <th>Price</th>
@@ -76,6 +71,7 @@
                                                     <img src=" {{ asset('/backend/img/dishes/'.$img) }}" width=50 alt="">
                                                 @endforeach
                                             </td>
+                                            <td>{{ $dish->users->name}}</td>
                                             <td>{{ $dish->sections->name}}</td>
 
                                             <td>{{ $dish->cusines[0]->name }}</td>
@@ -90,7 +86,7 @@
                                             <td >
                                                 @if (auth()->guard('admin')->user()->hasRole('super_admin'))
                                                     <div class="actions">
-                                                        <a class="link_update bg-success-light mr-2 disabled" data-toggle="modal"  href="#edit_specialities_details" >
+                                                        <a class="link_update bg-success-light mr-2 disabled" data-toggle="modal"  href="#edit_dishes_details" >
                                                             <i class="fe fe-pencil"></i> Edit
                                                         </a>
                                                         <a class="link_delete disabled" data-toggle="modal" href="#delete_modal" data-url=""  class="btn btn-sm btn-danger" style="color: #f00" >
@@ -99,7 +95,7 @@
                                                     </div>
                                                 @else
                                                 <div class="actions">
-                                                    <a class="link_update bg-success-light mr-2" data-toggle="modal"  href="#edit_specialities_details" >
+                                                    <a class="link_update bg-success-light mr-2" data-toggle="modal"  href="#edit_dishes_details" >
                                                         <i class="fe fe-pencil"></i> Edit
                                                     </a>
                                                     <a class="link_delete" data-toggle="modal" href="#delete_modal" data-url=""  class="btn btn-sm btn-danger" style="color: #f00">
@@ -126,11 +122,11 @@
 </div>
 <!-- /Page Wrapper -->
         <!-- Edit Details Modal -->
-        <div class="modal fade" id="edit_specialities_details" aria-hidden="true" role="dialog">
+        <div class="modal fade" id="edit_dishes_details" aria-hidden="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document" >
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Specialities</h5>
+                        <h5 class="modal-title">Edit dishes</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -175,15 +171,29 @@
             <div class="modal-body">
                 @include('backend.partials.errors')
 
-                <form method="POST" action="{{ url('dashboard/dish') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('dish.store')}}" enctype="multipart/form-data">
                     @csrf
+
                     <div class="row form-row">
+                        @if (auth()->guard('admin')->user()->roles[0]->name =='super_admin')
+                        <div class="col-12 col-sm-12 mb-4">
+
+                            <label>Cooks : </label>
+                            <select id="cooks" name="cook_id" class="selectpicker"  data-live-search="true"   style="width:50%;paddind:2px">
+                                @foreach ($cooks as $cook)
+                                <option value="{{ $cook->id }}">{{ $cook->name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        @endif
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                <label>@lang('site.'.$locale.'.dishname')</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ old($locale.'.name') }}">
                             </div>
                         </div>
+                        @endforeach
                         <div class="col-12 col-sm-6">
                             <div class="form-group">
                                 <div  class="dropzone dz-clickable" >
@@ -250,12 +260,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12">
+                        {{-- <div class="col-12 col-sm-12">
                             <div class="form-group">
                                 <label>price : </label>
                                 <input type="text" name="price" class="form-control" placeholder=" 10  " value="{{ old('price') }}" style="width: 20%;display:inline"> <span> $</span>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
                                 <label>portions available : </label>
@@ -272,20 +282,21 @@
                                       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
                                         aria-selected="false">Small</a>
                                     </li>
-                                  </ul>
-                                  <div class="tab-content" id="myTabContent">
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <input type="number" name="portions_available[]" class="form-control" placeholder=" 5 " value="{{ old('portions_lg_available') }}" style="width: 20%;display:inline"> <span> persons</span>
+                                        <input type="number" name="portions_available[]" class="form-control " placeholder=" 5 " value="{{ old('portions_lg_available') }}" style="width: 20%;display:inline"> <span class="mr-5"> persons</span>
+                                        <input type="number" name="portions_price[]" class="form-control"  value="{{ old('portions_lg_price') }}" style="width: 20%;display:inline"> <span> EGP</span>
                                     </div>
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <input type="number" name="portions_available[]" class="form-control" placeholder=" 3 " value="{{ old('portions_md_available') }}" style="width: 20%;display:inline"> <span> persons</span>
+                                        <input type="number" name="portions_available[]" class="form-control" placeholder=" 3 " value="{{ old('portions_md_available') }}" style="width: 20%;display:inline"> <span  class="mr-5"> persons</span>
+                                        <input type="number" name="portions_price[]" class="form-control"  value="{{ old('portions_lg_price') }}" style="width: 20%;display:inline"> <span> EGP</span>
                                     </div>
                                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        <input type="number" name="portions_available[]" class="form-control" placeholder=" 2 " value="{{ old('portions_sm_available') }}" style="width: 20%;display:inline"> <span> persons</span>
+                                        <input type="number" name="portions_available[]" class="form-control" placeholder=" 2 " value="{{ old('portions_sm_available') }}" style="width: 20%;display:inline"> <span class="mr-5"> persons</span>
+                                        <input type="number" name="portions_price[]" class="form-control"  value="{{ old('portions_lg_price') }}" style="width: 20%;display:inline"> <span> EGP</span>
                                     </div>
-                                  </div>
-
-
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-12">
@@ -301,9 +312,8 @@
                                @endforeach
                             </ul>
                         </div>
-                        <div class="col-12 col-sm-12">
+                        <div class="col-12 col-sm-12 mb-4">
                             <label>availability : </label>
-
                             <ul class="dish-type">
                                <li>
                                 <input type="radio" id="f-option" name="dish_available" value="1" checked>
@@ -318,18 +328,23 @@
                               </li>
                             </ul>
                         </div>
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Ingredients</label>
-                                <input type="text" name="ingredients" class="form-control" value="{{ old('ingredients') }}">
+                                <label>@lang('site.'.$locale.'.ingredients')</label>
+                                <input type="text" name="{{ $locale }}[main_ingredients]" class="form-control" value="{{ old($locale.'.ingredients') }}">
                             </div>
                         </div>
+                        @endforeach
+
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Descriptions</label>
-                               <textarea name="info" style="width: 90%"  rows="3"></textarea>
+                                <label>@lang('site.'.$locale.'.description')</label>
+                                <textarea name="{{ $locale }}[info]" style="width: 90%"  rows="3">{{ old($locale.'.info') }}</textarea>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <button type="submit" class="btn btn-otbokhly btn-block">Save Changes</button>
                 </form>
@@ -408,7 +423,7 @@ for (var i = 0; i < file.files['length']; i++) {
 
     $.ajax({
     type: 'GET',
-    url: '/dashboard/addons/'+ category_id,
+    url: '/{{ Config::get('app.locale') }}/dashboard/addons/'+ category_id,
 
     success: function(data) {
 

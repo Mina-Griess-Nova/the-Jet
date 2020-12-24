@@ -418,7 +418,7 @@ $('.date_picker').datepicker({
     console.log( activate_from);
 
       $.ajax({
-        url: "/dashboard/discount",
+        url: "/{{ Config::get('app.locale') }}/dashboard/discount",
         type:"POST",
         data:{
           name:name,

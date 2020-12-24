@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Allergen;
+use App\Models\AllergenTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AllergenController extends Controller
 {
@@ -37,13 +39,14 @@ class AllergenController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:allergens,name',
-        ]);
+        $rules=[ ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('allergen_translations','name')]];
+        }
 
-        $allergen=Allergen::create([
-            'name'=>$request->name
-        ]);
+        $request->validate( $rules);
+
+        $allergen=Allergen::create($request->all());
         return back();
     }
 
@@ -78,16 +81,16 @@ class AllergenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:allergens,name',
-        ]);
+        $rules=[ ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('allergen_translations','name')]];
+        }
 
+        $request->validate( $rules);
         $allergen=Allergen::find($id);
-        $allergen->update([
-            'name'=>$request->name
-        ]);
+        $allergen->update($request->all());
         $allergen->save();
-        return back();
+        return  redirect()->route('allergen.index');
     }
 
     /**
@@ -98,6 +101,8 @@ class AllergenController extends Controller
      */
     public function destroy($id)
     {
+        $allergen_trans=AllergenTranslation::where('allergen_id',$id)->delete();
+
         $allergen=Allergen::find($id);
         $allergen->delete();
         return back();

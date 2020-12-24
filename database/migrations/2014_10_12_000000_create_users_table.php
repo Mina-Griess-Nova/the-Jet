@@ -15,7 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->time('work_from')->nullable();
+            $table->time('work_to')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone');
@@ -23,6 +24,12 @@ class CreateUsersTable extends Migration
             $table->text('info')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('password');
+            $table->foreignId('city_id')->nullable()->constrained('cities');
+            $table->integer('commission')->nullable();
+            $table->text('commission_type')->nullable();
+            $table->string('contract')->nullable();
+            $table->tinyInteger('availability')->default('0');
+            $table->tinyInteger('VIP')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

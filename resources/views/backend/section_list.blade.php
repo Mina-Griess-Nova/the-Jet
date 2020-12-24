@@ -98,12 +98,16 @@
                             @csrf
                             @method('put')
                             <div class="row form-row">
-                                <div class="col-12 col-sm-6">
+                                @foreach (config('translatable.locales') as $locale)
+                                <div class="col-12 col-sm-12">
                                     <div class="form-group">
-                                        <label>sections</label>
-                                        <input  type="text" name="name" class="form-control" value="">
+                                        <label>@lang('site.'.$locale.'.name')</label>
+                                        @isset($section)
+                                        <input type="text" name="{{ $locale }}['name']" class="form-control" value="{{ $section->translate($locale)->name }}">
+                                        @endisset
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
                         </form>
@@ -125,15 +129,17 @@
             <div class="modal-body">
                 @include('backend.partials.errors')
 
-                <form method="POST" action="{{ url('dashboard/section') }}">
+                <form method="POST" action="{{ route('section.store') }}">
                     @csrf
                     <div class="row form-row">
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                <label>{{ trans('site.'.$locale.'.name') }}</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ old($locale.'.name') }}">
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <button type="submit" class="btn btn-otbokhly btn-block">Save</button>
                 </form>
@@ -185,13 +191,13 @@
         $('.link_update').on('click',function(){
             var section_id=$(this).attr('id');
 
-            $('#formUpdate').attr('action','/dashboard/section/'+section_id)
+            $('#formUpdate').attr('action','/{{ Config::get('app.locale') }}/dashboard/section/'+section_id)
 
         })
         $('.link_delete').on('click',function(){
             var section_id=$(this).attr('id');
 
-            $('#formDelete').attr('action','/dashboard/section/'+section_id)
+            $('#formDelete').attr('action','/{{ Config::get('app.locale') }}/dashboard/section/'+section_id)
 
         })
     </script>

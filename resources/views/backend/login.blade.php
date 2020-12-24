@@ -8,7 +8,7 @@
         <title>Doccure - Login</title>
 
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="backend/img/favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="backend/img/.png">
 
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}">

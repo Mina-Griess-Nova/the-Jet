@@ -37,6 +37,10 @@ class LoginController extends Controller
 
             return response()->json(['success' => true, 'redirectto' => '/dashboard']);
 
+        }elseif(Auth::guard('admin')->attempt(['email' => $credentials['email'], 'password' => $credentials['password']])  && $user->roles[0]->name == 'admin' ){
+
+            return response()->json(['success' => true, 'redirectto' => '/dashboard']);
+
         }
         else{
             return response()->json(['success' => false, 'error' => 'Login Failed! Email or Password is incorrect.']);

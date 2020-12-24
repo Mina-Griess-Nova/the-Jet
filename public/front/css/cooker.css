@@ -4,7 +4,7 @@
     margin-right: 15px;
 }
 .fa-star {
-    color: #F4774F
+    color: #CB1104
 }
 .row,.container{
    padding: 0
@@ -24,21 +24,21 @@
     border-radius: 50%
 }
 .profile .col-lg-2 .follow{
-    color: #F4774F;
+    color: #CB1104;
 }
 .profile .col-lg-2 .follow .btn,.profile .col-lg-8 .float-right .btn{
     outline: 1px solid;
-    outline-color: #F4774F
+    outline-color: #CB1104
 }
 .profile .col-lg-2 .follow .btn:hover,.profile .col-lg-8 .float-right .btn:hover{
-    background-color: #F4774F;
+    background-color: #CB1104;
     color: #fff
 }
 .profile .rating{
     margin-top: 40px
 }
 .profile .rating i{
-    color: #F4774F
+    color: #CB1104
 }
 .profile .rating span .reviews{
     text-decoration: underline !important;
@@ -66,7 +66,7 @@
     top: 7px;
     left: -90px;
     background-color: #F4F2F2;
-    color: #F4774F;
+    color: #CB1104;
     transform: rotate(-45deg);
     font-size: small;
     padding: 25px 53px 13px 98px;
@@ -75,7 +75,7 @@
     font-size: 14px;
 }
 .row .col-md-3 .card-body i{
-    color: #F4774F
+    color: #CB1104
 }
 .date_slider{
 width: 100%;
@@ -148,7 +148,7 @@ background: transparent;
 padding-top: 50px;
 }
 .active_date{
-border-bottom: 1px solid #F4774F;
+border-bottom: 1px solid #CB1104;
 }
 
 
@@ -175,7 +175,7 @@ overflow: hidden;
 background: #ebebeb;
 }
 .map-location h6 span{
-color: #F4774F
+color: #CB1104
 }
 @media (max-width: 768px) {
 #map{

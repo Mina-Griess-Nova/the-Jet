@@ -13,8 +13,13 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call(RolesTableSeeder::class);
+        $this->call(LaratrustSeeder::class);
 
         $this->call(AdminUserSeeder::class);
+        $this->call(CustomerSeeder::class);
+
+
+
 
     }
 }

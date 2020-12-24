@@ -109,10 +109,10 @@ $( "#slider1-range" ).slider({
     max: 500,
     values: [ 75, 300 ],
     slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount" ).val( " EGP " + ui.values[ 0 ] + " - EGP " + ui.values[ 1 ] );
     }
 });
-$( "#amount" ).val( "$" + $( "#slider1-range" ).slider( "values", 0 ) + " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+$( "#amount" ).val( " EGP " + $( "#slider1-range" ).slider( "values", 0 ) + " - EGP" + $( "#slider-range" ).slider( "values", 1 ) );
 
 
 

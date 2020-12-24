@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Addons extends Model
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+class Addons extends Model implements TranslatableContract
 {
-    protected $fillable=['name'];
+    use Translatable;
 
+    protected $guarded = [];
+
+    public $translationForeignKey='addon_id';
+
+
+
+    public $translatedAttributes = ['name'];
     public function dishes(){
         return $this->belongsToMany('App\Models\Dish','Addon_dish','addon_id','dish_id');
     }

@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\City;
 use App\Models\User;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule as Rule;
 
 class CookController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +26,48 @@ class CookController extends Controller
 
     public function index()
     {
-        $cooks=User::whereRoleIs('cook')->get();
-        return view('backend.cooks-list',compact('cooks'));
+        $cities=City::all();
+        $user=User::where('id',auth()->guard('admin')->user()->id)->first();
+        if($user->hasRole('admin')){
+            $cooks=User::whereRoleIs('cook')
+            ->where('city_id',auth()->guard('admin')->user()->city_id)
+            ->get();
+        }else{
+            $cooks=User::whereRoleIs('cook')->get();
+        }
+
+        return view('backend.cooks-list',compact('cooks','cities'));
     }
 
+
+
+
+    public function vip_cook( $id)
+    {
+
+       $cook=User::where('id',$id)->update([
+            'VIP'=>1
+        ]);
+        return response()->json(['success' => $id,]);
+    }
+
+    public function vip_reset( $id)
+    {
+
+        User::where('id',$id)->update([
+            'VIP'=>0
+        ]);
+
+       return response()->json(['success' => $id]);
+    }
+
+    public function vip()
+    {
+        $cooks=User::where('VIP','1')->whereHas('roles',function($q){
+            $q->where('name','cook');
+         })->get();
+         return view('backend.vip-cook-list',compact('cooks'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,21 +86,32 @@ class CookController extends Controller
      */
     public function store(Request $request)
     {
-        $validate=$request->validate([
-            'name'=>'required',
+
+
+        $rules=[
             'phone'=>'required|regex:/(01)[0-9]{9}/',
             'email'=>'required|unique:users',
-            'password'=>'required'
-        ]);
-
-
+            'password'=>'required',
+            'city'=>'required',
+            'contract'=>'required',
+            'commission'=>'required',
+            'commission_type'=>'required',
+        ];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('user_translations','name')]];
+        }
+        $cook_trans=$request->only(['en','ar']);
        $cook= User::create([
-            'name'=>$request->name,
+            'images'=>'1606647695.jpg',
             'email'=>$request->email,
             'phone'=>$request->phone,
+            'contract'=>$request->contract,
+            'commission'=>$request->commission,
+            'commission_type'=>$request->commission_type,
+            'city_id'=>$request->city,
             'password'=>Hash::make($request->password)
         ]);
-
+        $cook->update($cook_trans);
         $cook->roles()->attach(3);
 
         return redirect('dashboard/cook');
@@ -105,11 +157,11 @@ class CookController extends Controller
         $validate=$request->validate([
             'phone'=>'required',
             'birth_date'=>'required ',
-            'state'=>'required',
-            'city'=>'required',
-            'area'=>'required',
-            'title'=>'required',
-            'floor'=>'required',
+            // 'state'=>'required',
+            // 'city'=>'required',
+            // 'area'=>'required',
+            // 'title'=>'required',
+            'address'=>'required',
             'info'=>'required',
             'work_from'=>'required',
             'work_to'=>'required',
@@ -131,7 +183,16 @@ class CookController extends Controller
         else{
             $image_name=$cook->images;
         }
+
+        if($request->availability == null){
+            $request->availability = 0;
+        }else{
+            $request->availability = 1;
+        }
+
+
         $cook->update([
+            'availability'=>$request->availability,
             'name'=>$request->name,
             'phone'=>$request->phone,
             'email'=>$request->email,
@@ -141,18 +202,26 @@ class CookController extends Controller
             'work_from'=>$request->work_from,
             'work_to'=>$request->work_to,
         ]);
+        $address=$cook->address;
+        // dd($address);
+        if($address ==null){
+            $address->update([
+            'address'=>$request->address,
+            'coordinates'=>$request->coordinates,
+            ]);
+        } else{
+            $address=Address::create([
+                'user_id'=>$cook->id,
+                'address'=>$request->address,
+                'coordinates'=>$request->coordinates,
+            ]);
+        }
 
-        $address=Address::create([
-            'user_id'=>$cook->id,
-            'state'=>$request->state,
-            'city'=>$request->city,
-            'area'=>$request->area,
-            'title'=>$request->title,
-            'floor'=>$request->floor,
-        ]);
 
         return back();
     }
+
+
 
     /**
      * Remove the specified resource from storage.

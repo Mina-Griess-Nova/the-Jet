@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as Rule;
 
 class CategoryController extends Controller
 {
@@ -37,13 +39,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:cusines,name',
-        ]);
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('category_translations','name')]];
+        }
+        $request->validate( $rules);
 
-        $categories=Category::create([
-            'name'=>$request->name
-        ]);
+        $categories=Category::create($request->all());
         return back();
     }
 
@@ -78,16 +80,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:categories,name',
-        ]);
+        $rules=[];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('category_translations','name')]];
+        }
 
+        $request->validate( $rules);
         $category=Category::find($id);
-        $category->update([
-            'name'=>$request->name
-        ]);
+        $category->update($request->all());
         $category->save();
-        return back();
+        return  redirect()->route('category.index');
     }
 
     /**
@@ -98,6 +100,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $category_trans=CategoryTranslation::where('category_id',$id)->delete();
+
         $category=Category::find($id);
         $category->delete();
         return back();

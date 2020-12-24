@@ -58,7 +58,7 @@
                                             <td>{{ $addon->name }}</td>
                                             <td>
                                                 @foreach ($addon->categories as $category)
-                                                    {{ $category->name }},
+                                                <span style="padding: 2px;border:1px solid #ccc">{{ $category->name }}</span>
                                                 @endforeach
                                             </td>
 
@@ -104,21 +104,30 @@
                             @csrf
                             @method('put')
                             <div class="row form-row">
-                                <div class="col-12 col-sm-6">
+                                @foreach (config('translatable.locales') as $locale)
+                                <div class="col-12 col-sm-12">
                                     <div class="form-group">
-                                        <label>addons</label>
-                                        <input  type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                        <label>@lang('site.'.$locale.'.name')</label>
+                                        @isset($addon)
+                                        <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ $addon->translate($locale)->name }}">
+                                        @endisset
                                     </div>
                                 </div>
+                                @endforeach
+
                                 <div class="col-12 col-sm-12">
                                     <div class="form-group row">
                                         <div class="col-9 col-sm-9">
                                         <label>Categories : </label>
 
                                             <select id="category" name="categories[]" class="selectpicker" multiple data-live-search="true" style="width:50%;paddind:2px">
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
+                                               @isset($categories)
+                                               @foreach ($categories as $category)
+                                               @isset($addon)
+                                                 <option {{ (in_array($category->id, $addon->categories->pluck('id')->toArray()))? 'selected' :' ' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                                               @endisset
+                                               @endforeach
+                                               @endisset
                                             </select>
                                         </div>
                                     </div>
@@ -144,15 +153,18 @@
             <div class="modal-body">
                 @include('backend.partials.errors')
 
-                <form method="POST" action="{{ url('dashboard/addons') }}">
+                <form method="POST" action="{{ route('addons.store') }}">
                     @csrf
                     <div class="row form-row">
+
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                <label>@lang('site.'.$locale.'.name')</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ old($locale.'.name') }}">
                             </div>
                         </div>
+                        @endforeach
                         <div class="col-12 col-sm-12">
                             <div class="form-group row">
                                 <div class="col-9 col-sm-9">
@@ -216,13 +228,13 @@
         $('.link_update').on('click',function(){
             var addon_id=$(this).attr('id');
 
-            $('#formUpdate').attr('action','/dashboard/addons/'+addon_id)
+            $('#formUpdate').attr('action','/{{ Config::get('app.locale') }}/dashboard/addons/'+addon_id)
 
         })
         $('.link_delete').on('click',function(){
             var addon_id=$(this).attr('id');
 
-            $('#formDelete').attr('action','/dashboard/addons/'+addon_id)
+            $('#formDelete').attr('action','/{{ Config::get('app.locale') }}/dashboard/addons/'+addon_id)
 
         })
 

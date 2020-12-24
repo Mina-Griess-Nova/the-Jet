@@ -1,6 +1,57 @@
 @extends('backend.layouts.app')
+@push('style')
+
+<style>
 
 
+    input[type=checkbox] + label {
+      display: block;
+      margin: 0.2em;
+      cursor: pointer;
+      padding: 0.2em;
+    }
+
+    input[type=checkbox] {
+      display: none;
+    }
+
+    input[type=checkbox] + label:before {
+      content: "\2714";
+      border: 0.1em solid #000;
+      border-radius: 0.2em;
+      display: inline-table;
+      width: 10px;
+      height: 10px;
+      padding-left: 0.2em;
+      padding-bottom: 0.3em;
+      margin-right: 0.2em;
+      vertical-align: bottom;
+      color: transparent;
+      transition: .2s;
+    }
+
+    input[type=checkbox] + label:active:before {
+      transform: scale(0);
+    }
+
+    input[type=checkbox]:checked + label:before {
+      background-color: gold;
+      border-color: gold;
+      color: #fff;
+    }
+
+    input[type=checkbox]:disabled + label:before {
+      transform: scale(1);
+      border-color: #aaa;
+    }
+
+    input[type=checkbox]:checked:disabled + label:before {
+      transform: scale(1);
+      background-color: #bfb;
+      border-color: #bfb;
+    }
+    </style>
+    @endpush
 @section('content')
  <!-- Page Wrapper -->
  <div class="page-wrapper">
@@ -45,7 +96,11 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Reviews</th>
+                                        <th>Contract</th>
+                                        <th>City</th>
+                                        <th>Commission</th>
+                                        <th>Commission Type</th>
+                                        {{-- <th>Reviews</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,19 +110,27 @@
                                         <tr>
                                             <td>
                                                 <h2 class="table-avatar">
-                                                    <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{asset('backend/img/cook/'.$cook->images )}}" alt="User Image"></a>
-                                                    <a href="profile.html">{{ $cook->name }}</a>
+
+
+                                                    <input type="checkbox" class="vip_{{ $cook->id }}" id="{{ $cook->id }}" name="vip{{ $cook->id }}" value="{{ $cook->VIP =='1' ? $cook->VIP :'0'  }}"{{ $cook->VIP =='1' ? 'checked' :' '  }} onchange="vip({{ $cook->id }},this)">
+                                                    <label for="{{ $cook->id }}">
+                                                    <a href="#" style="color:{{ $cook->VIP =='1' ? 'gold' :' '  }}">{{ $cook->name }}</a>
+
                                                 </h2>
                                             </td>
                                             <td>{{ $cook->email }}</td>
                                             <td>{{  $cook->phone  }}</td>
-                                            <td>
+                                            <td>{{  $cook->contract  }}</td>
+                                            <td>{{  $cook->cities->name }}</td>
+                                            <td>{{  $cook->commission  }}</td>
+                                            <td>{{  $cook->commission_type  }}</td>
+                                            {{-- <td>
                                                 <i class="fe fe-star-o text-secondary"></i>
                                                 <i class="fe fe-star-o text-secondary"></i>
                                                 <i class="fe fe-star-o text-secondary"></i>
                                                 <i class="fe fe-star-o text-secondary"></i>
                                                 <i class="fe fe-star-o text-secondary"></i>
-                                            </td>
+                                            </td> --}}
                                             <td >
                                                 <div class="actions">
                                                     <a id="{{ $cook->id }}" class="link_delete" data-toggle="modal" href="#delete_modal" data-url=""  class="btn btn-sm btn-danger" style="color: #f00">
@@ -105,15 +168,17 @@
             <div class="modal-body">
                 @include('backend.partials.errors')
 
-                <form method="POST" action="#" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('cook.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row form-row">
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                <label>{{ trans('site.'.$locale.'.name') }}</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ old($locale.'.name') }}">
                             </div>
                         </div>
+                        @endforeach
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
                                 <label>phone</label>
@@ -130,6 +195,31 @@
                             <div class="form-group">
                                 <label>password</label>
                                 <input type="password" name="password" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <label>City : </label>
+                            <select id="cooks" name="city" class="selectpicker"  data-live-search="true"   style="width:50%;paddind:2px">
+                                @foreach ($cities as $city)
+                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-12 mt-3">
+                            <div class="form-group">
+                                <label>Contract Number</label>
+                                <input type="text" name="contract" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Commission</label>
+                                <input type="number" name="commission" class="" style="width: 50%;dislay:inline !important">
+                                <select class="form-control" name="commission_type"  id="commission_type" title="EGP" placeholder="EGP"  data-live-search="true"   style="width:20%!important;display: inline !important;paddind:2px" >
+                                    <option value="EGP">EGP </option>
+                                    <option value="%">% </option>
+
+                                </select>
                             </div>
                         </div>
 
@@ -184,8 +274,41 @@
         $('.link_delete').on('click',function(){
             var cook_id=$(this).attr('id');
 
-            $('#formDelete').attr('action','/dashboard/cook/'+cook_id)
+            $('#formDelete').attr('action','/{{ Config::get('app.locale') }}/dashboard/cook/'+cook_id)
 
         })
+
+
+        function vip(cook_id,checkbox){
+            var value=document.getElementById(cook_id);
+            if(value.checked == true){
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/{{ Config::get('app.locale') }}/dashboard/cook/vip/'+cook_id,
+
+                    success:function(data){
+                        value='1';
+
+                    },
+                    error:function(data){
+                    }
+                });
+
+
+            }else{
+                $.ajax({
+                    type: 'GET',
+                    url: '/{{ Config::get('app.locale') }}/dashboard/cook/reset/'+cook_id,
+
+                    success:function(data){
+                        value='0';
+
+                    },
+                    error:function(data){
+                    }
+                });
+            }
+        };
     </script>
 @endpush

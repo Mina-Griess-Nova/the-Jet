@@ -29,8 +29,12 @@ position: relative;
     height: 80px;
     width: 80px;
 }
-</style>
 
+
+
+
+
+</style>
 
 
 @section('content')
@@ -61,7 +65,7 @@ position: relative;
             <div class="row">
                 <div class="col-md-7 col-lg-8 col-xl-9">
 
-                    <form action="{{ url('dashboard/cook/'.$cook->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('cook.update',$cook->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <!-- Basic Information -->
@@ -69,7 +73,17 @@ position: relative;
                             <div class="card-body">
                                 @include('backend.partials.errors')
 
-                                <h4 class="card-title">Basic Information</h4>
+                               <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="card-title">Basic Information</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-switch">
+                                        <input name="availability" type="checkbox" class="custom-control-input" id="customSwitches" value="{{ $cook->availability }}" {{ $cook->availability == 1 ? 'checked' : ''}} >
+                                        <label class="custom-control-label" for="customSwitches">Status</label>
+                                      </div>
+                                </div>
+                               </div>
                                 <div class="row form-row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -114,10 +128,15 @@ position: relative;
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 mb-3">
-                                            Address :
+                                        Address :
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="row pb-3 map-location pt-3">
+                                                <input type="text" value=""  class="form-control "  name="coordinates" id="coordinates"   hidden>
+                                                <input type="text"  class="form-control "  name="address"  value="{{ $cook->address[0]->address ?? ' ' }}"  >
+                                                <div id="map"  style="width: 800px;height:200px "></div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>Title</label>
                                                 <input name="title"  type="text" value="{{ $cook->address[0]->title ?? old('title') }}" class="form-control">
@@ -146,30 +165,22 @@ position: relative;
                                                 <label>Floor</label>
                                                 <input name="floor"  type="text" value="{{$cook->address[0]->floor ?? old('floor') }}" class="form-control">
                                             </div>
-                                        </div>
-
+                                        </div> --}}
                                     </div>
-
                                     <div class="row">
                                         <div class="col-md-12 mt-3 ">
                                             Availability :
                                         </div>
-                                        @php
-
-                                          $date_from=explode(" ",date($cook->work_from));
-                                          $date_to=explode(" ",date($cook->work_to));
-
-                                        @endphp
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>From</label>
-                                                <input name="work_from"  type="time" value="{{$date_from[1] ?? old('work_from') }}" >
+                                                <input name="work_from"  type="time" value="{{ date('H:i:s', strtotime($cook->work_from)) ?? old('work_from') }}" >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mb-0">
                                                 <label>To</label>
-                                                <input name="work_to"  type="time" value="{{$date_to[1] ?? old('work_to') }}" >
+                                                <input name="work_to"  type="time" value="{{date('H:i:s', strtotime($cook->work_to)) ?? old('work_to') }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -205,6 +216,10 @@ position: relative;
 </div>
     <script>
 
+
+
+
+
     function removeDiv(elem){
         $(elem).parent('div').remove();
     }
@@ -232,6 +247,78 @@ position: relative;
 
 
 }
+
+
+
+
+let map, infoWindow;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 10,
+  });
+  infoWindow = new google.maps.InfoWindow();
+  const locationButton = document.createElement("button");
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+        // //   infoWindow.setPosition(pos);
+          infoWindow.open(map);
+          map.setCenter(pos);
+        var marker = new google.maps.Marker({
+            position: pos,
+            map: map,});
+            var coordinates=(marker.getPosition().lng()).toString()+','+(marker.getPosition().lat()).toString();
+            $('#coordinates').attr('value',coordinates);
+
+            map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            marker.setMap(null);
+            // Create a new InfoWindow.
+            marker = new google.maps.Marker({
+            position: mapsMouseEvent.latLng,
+            map: map,});
+
+            // console.log(marker.getPosition().lat())  ;
+            // console.log(marker.getPosition().lng())  ;
+            coordinates=(marker.getPosition().lng()).toString()+','+(marker.getPosition().lat()).toString();
+            $('#coordinates').attr('value',coordinates);
+            // $('#lat').attr('value',marker.getPosition().lat());
+
+        });
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
+
+
+
+
+
     </script>
 
 

@@ -176,8 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Laratrust\LaratrustServiceProvider::class,
-
-    ],
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        ],
 
     /*
     |--------------------------------------------------------------------------
@@ -230,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Laratrust'   => Laratrust\LaratrustFacade::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+
     ],
 
 ];

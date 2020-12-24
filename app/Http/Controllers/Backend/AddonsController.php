@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Addons;
+use App\Models\AddonsTranslation;
 use App\Models\Category;
-use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -41,13 +41,15 @@ class AddonsController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$request->validate([
-            'name'=>'required|unique:addons,name',
-            'categories'=>'required'
-        ]);
-        $addons=Addons::create([
-            'name'=>$request->name
-        ]);
+         $rules=[ 'categories'=>'required|min:1'];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required',Rule::unique('addons_translations','name')]];
+        }
+
+        $request->validate( $rules);
+
+        $data=$request->except('categories');
+        $addons=Addons::create($data);
 
         foreach($request->categories as $category){
             $addons->categories()->attach($category);
@@ -88,20 +90,21 @@ class AddonsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $addon=Addons::find($id);
 
-        $validation=$request->validate([
-            'name'=> 'required',
-            'categories'=>'required'
-        ]);
+        $rules=[ 'categories'=>'required|min:1'];
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale.'.name'=>['required','unique:addons,id,'.$addon->id]];
+        }
 
-        $addon->update([
-            'name'=>$request->name
-        ]);
+        $request->validate( $rules);
+        $data=$request->except('categories');
+        $addon->update($data);
         $addon->save();
 
         $addon->categories()->sync($request->categories);
-        return back();
+        return  redirect()->route('addons.index');
     }
 
     /**
@@ -112,6 +115,7 @@ class AddonsController extends Controller
      */
     public function destroy($id)
     {
+        $addon_trans=AddonsTranslation::where('addon_id',$id)->delete();
         $addon=Addons::find($id);
         $addon->categories()->detach();
         $addon->delete();

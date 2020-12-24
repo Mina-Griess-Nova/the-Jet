@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,33 @@ class CustomerController extends Controller
          return view('backend.customer-list',compact('customers'));
     }
 
+    public function vip_customer( $id)
+    {
+        // $customer=User::find($id);
+
+        User::where('id',$id)->update([
+            'VIP'=>'1'
+        ]);
+        return response()->json(['success' => true]);
+    }
+
+    public function vip_reset( $id)
+    {
+
+        User::where('id',$id)->update([
+            'VIP'=>'0'
+        ]);
+       return response()->json(['success' => true]);
+    }
+
+    public function vip()
+    {
+        $customers=User::where('VIP','1')->whereHas('roles',function($q){
+            $q->where('name','customer');
+         })->get();
+         return view('backend.vip-customer-list',compact('customers'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,6 +58,7 @@ class CustomerController extends Controller
     {
         //
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -73,7 +102,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

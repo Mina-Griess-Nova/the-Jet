@@ -1,0 +1,488 @@
+#myVideo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .Emdwyl {
+      position: relative;
+  }
+
+  .Emdwyl1 {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 0px 25px 0px 25px;
+  }
+
+  .Emdwyl fa {
+      float: right;
+      position: relative;
+      bottom: 33px;
+      right: 6px;
+  }
+
+  .Emdwyl1 label {
+      height: 45px;
+  }
+
+  .Emdwyl h1 {
+      font-family: Avenir;
+      color: #535353;
+      margin-bottom: 0;
+      line-height: 1.2;
+  }
+
+  .dd-button {
+      background: #fe845d;
+      font-weight: 700;
+  }
+
+  section {
+      padding: 48px 0;
+  }
+
+  img {
+      width: 50%;
+      height: auto;
+  }
+
+  h2 {
+      color: #696969;
+      font-family: Avenir;
+      font-size: 32px;
+      font-weight: 900;
+      padding-left: 25px;
+      padding-right: 25px;
+      display: inline-block;
+      margin-bottom: 40px!important;
+      max-width: 75%;
+      border-bottom: 2px solid #fe845d;
+  }
+
+  p {
+      color: #5e5e5e;
+      font-size: 16px;
+      font-family: Avenir;
+  }
+
+  h4 {
+      color: #5e5e5e;
+      font-family: Avenir;
+      font-size: 20px;
+      font-weight: 900;
+  }
+
+  h5 {
+      color: #5e5e5e;
+      font-family: Avenir;
+      font-size: 18px;
+      font-weight: 900;
+  }
+
+  .DishDivvy_Benefits ul>li>div>p {
+      margin-left: 35px;
+  }
+
+  .DB2 a {
+      background: #fe845d;
+      color: #fff;
+      font-weight: 500;
+      font-size: 20px;
+      margin-top: 45px;
+      border-radius: 5px;
+  }
+
+  .DB2 a:hover {
+      opacity: .8;
+      transition: opacity .3s ease-in;
+      color: #ffffff;
+  }
+
+
+
+  div>svg>path {
+      color: #5e5e5e;
+  }
+  ul>li>div>svg {
+      margin-right: 10px;
+  }
+  .DishDivvy_Benefits ul>li>div>p>span>a {
+      text-decoration: underline;
+      color: #000000;
+  }
+
+  .TD h2 {
+      color: #696969;
+      font-family: Avenir;
+      font-size: 32px;
+      font-weight: 900;
+      padding-left: 25px;
+      padding-right: 25px;
+      display: inline-block;
+      margin-bottom: 40px!important;
+      max-width: 75%;
+      border-bottom: 2px solid #fe845d;
+  }
+
+  .TD img {
+      width: 80px;
+      float: left;
+  }
+
+  .NftjDD {
+      margin-bottom: 70px;
+  }
+
+  .NftjDD1 {
+      padding-left: 100px;
+  }
+
+  .NftjDD1 p {
+      font-size: 17px;
+  }
+
+  .Wommiymm {
+      margin-bottom: 70px;
+  }
+
+  .Wommiymm1 {
+      padding-left: 100px;
+  }
+
+  .Wommiymm1 p {
+      font-size: 17px;
+  }
+
+
+  .Edds {
+      margin-bottom: 70px;
+  }
+
+  .Edds1 {
+      padding-left: 100px;
+  }
+
+  .Edds1 p {
+      font-size: 17px;
+  }
+
+  .Gpoeo {
+      margin-bottom: 70px;
+  }
+
+  .Gpoeo1 {
+      padding-left: 100px;
+  }
+
+  .Gpoeo1 {
+      font-size: 17px;
+  }
+
+  .Btfb {
+      background-color: #f9f9f9;
+  }
+
+  .Btfb h2 {
+      color: #696969;
+      font-family: Avenir;
+      font-size: 32px;
+      font-weight: 900;
+      padding-left: 25px;
+      padding-right: 25px;
+      display: inline-block;
+      margin-bottom: 40px!important;
+      max-width: 75%;
+      border-bottom: 2px solid #fe845d;
+  }
+
+  .Btfb p {
+      color: #5e5e5e;
+      font-family: Avenir;
+      font-size: 24px;
+      float: left;
+  }
+
+  .Btfb-img img {
+      width: 40px;
+      float: left;
+  }
+
+  .button1 {
+      align-items: end;
+      display: inline-block;
+      width: 100%;
+  }
+
+  .button1>.btn {
+      background: #fe845d;
+      color: #fff;
+      font-weight: 700;
+      font-size: 24px;
+  }
+
+  .button1 a:hover {
+      color: #fff
+  }
+
+  .btn:hover {
+      opacity: .8;
+      transition: opacity .3s ease-in;
+  }
+
+  .Aehik h2 {
+      color: #696969;
+      font-family: Avenir;
+      font-size: 32px;
+      font-weight: 900;
+      padding-left: 25px;
+      padding-right: 25px;
+      display: inline-block;
+      margin-bottom: 40px!important;
+      max-width: 75%;
+      border-bottom: none;
+  }
+
+  .Aehik h5 {
+      margin-left: 10px;
+  }
+
+  .Aehik p {
+      padding-left: 35px;
+  }
+
+  .Aehik img {
+      width: 90%;
+  }
+
+  .Aehik hr {
+      width: 90%;
+      border: 1px solid #0098c1;
+      margin-top: 40px;
+  }
+
+  .Aehik i {
+      margin-right: 5px;
+      font-size: 20px;
+  }
+
+  .Food_is_Joy {
+      background-image: url('../../assets/img/dishdivvy-homecook-alicia.JPG');
+      width: 100%;
+      min-height: 840px;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+  }
+
+  .txt-content {
+      background-color: #ffffff;
+      padding: 5px 25px 5px 25px;
+      border-radius: 10px;
+  }
+
+
+  .FiJ a:hover {
+      color: #ffffff;
+  }
+
+  .FiJ a {
+      top: 20px;
+      display: block;
+      position: relative;
+      color: #fff;
+      font-size: 20px;
+  }
+
+  .FiJ h2 {
+      color: #696969;
+      font-family: Avenir;
+      font-size: 32px;
+      font-weight: 900;
+      padding-left: 25px;
+      padding-right: 25px;
+      display: inline-block;
+      margin-bottom: 40px!important;
+      max-width: 100%;
+      border-bottom: none;
+  }
+
+  .WMI>div>div>div>div>div>div>div>h2 {
+      padding-left: 0px;
+      padding-right: 0px;
+  }
+
+  .DDCB a {
+      text-decoration: underline;
+      color: #5e5e5e;
+      font-family: Avenir;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 27px;
+  }
+
+  .aiE a {
+      text-decoration: underline;
+      color: #5e5e5e;
+      font-family: Avenir;
+      font-size: 20px;
+      line-height: 27px;
+
+  }
+
+  .CB {
+      bottom: 30px;
+  }
+
+  .CB img {
+      width: 100%;
+  }
+
+  .Hmq {
+      padding-top: 0px;
+  }
+
+  .Hmq1 hr {
+      padding-bottom: 50px;
+  }
+
+  .Hmq2 h4 {
+      color: #a9a9a9;
+      font-family: Avenir;
+      text-align: center;
+      font-size: 24px;
+      border-bottom: none;
+      margin-bottom: 0!important;
+  }
+
+  @media(max-width: 480px) {
+
+
+      .DB2 {
+      padding-left: 10px;
+      padding-right: 10px;
+      }
+
+      .DB1 ul {
+          padding-inline-start: 10px;
+      }
+
+      .DB1 p {
+          padding-left: 0px!important;
+      }
+
+      .DB1 h4 {
+          padding-left: 0px!important;
+      }
+  }
+
+  @media (min-width: 576px) {
+      .button1 {
+          padding-top: 0px;
+      }
+  }
+
+
+  @media(min-width: 768px){
+
+      .DB2 {
+          padding-left: 50px;
+      }
+
+      .button1 {
+          padding-top: 40px;
+      }
+
+
+      .DB1 ul {
+          padding-inline-start: 8px;
+      }
+
+      .DB1 p {
+          padding-left: 0px!important;
+      }
+
+      .DB1 h4 {
+          padding-left: 0px!important;
+      }
+
+  }
+
+  @media (min-width: 1200px) {
+      .button1 {
+          padding-top: 110px!important;
+      }
+  }
+
+  @media (min-width: 992px) {
+      .button1 {
+          padding-top: 77px;
+      }
+  }
+
+  @media (max-width: 575.99px) {
+      .DB2 {
+          padding-right: 10px;
+          padding-left: 10px;
+      }
+  }
+
+
+
+
+
+  /* @media only screen and (min-width: 768px) and (max-width: 991.99px) {
+
+      .NftjDD1 {
+           padding-left: 35px;
+      }
+
+      .Wommiymm1 {
+           padding-left: 35px;
+      }
+
+      .Edds1 {
+           padding-left: 35px;
+      }
+
+      .Gpoeo1 {
+           padding-left: 35px;
+      }
+
+      .TD img {
+          width: 185%;
+              margin-left: 0px;
+      }
+  }
+
+  @media (min-width: 992px) {
+      .TD img {
+          width: 100%;
+          margin-left: 20px;
+      }
+
+      /* .TD img {
+          width: 100%;
+          margin-left: 20px;
+      }
+
+      .NftjDD1 {
+          padding-left: 15px;
+      }
+
+      .Wommiymm1 {
+          padding-left: 15px;
+      }
+
+      .Edds1 {
+          padding-left: 15px;
+      }
+
+      .Gpoeo1 {
+          padding-left: 15px;
+      }
+  }
+
+  @media (max-width: 768px) */

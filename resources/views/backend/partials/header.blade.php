@@ -3,12 +3,12 @@
 
     <!-- Logo -->
     <div class="header-left">
-        {{-- <a href="#" class="logo">
-            <img src="{{ asset('front/images/msol-logo.png') }}" width="150" alt="Logo">
+        <a href="#" class="logo">
+            {{-- <img src="{{ asset('front/images/msol-logo.png') }}" width="150" alt="Logo"> --}}
         </a>
         <a href="#" class="logo logo-small">
-            <img src="{{ asset('front/images/msol-logo.png') }}" alt="Logo" width="30" height="30">
-        </a> --}}
+            {{-- <img src="{{ asset('front/images/msol-logo.png') }}" alt="Logo" width="30" height="30"> --}}
+        </a>
     </div>
     <!-- /Logo -->
 
@@ -31,7 +31,15 @@
 
     <!-- Header Right Menu -->
     <ul class="nav user-menu">
-
+        <ul>
+            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <li>
+                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
         <!-- Notifications -->
         <li class="nav-item dropdown noti-dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -43,7 +51,9 @@
                     <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
                 </div>
                 <div class="noti-content">
+
                     <ul class="notification-list">
+
                         <li class="notification-message">
                             <a href="#">
                                 <div class="media">

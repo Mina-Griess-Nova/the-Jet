@@ -37,12 +37,12 @@ color: #535353
 
 }
 .content .buy span{
-    background-color: #F4774F !important;
+    background-color: #CB1104 !important;
     color: #fff;
-    border: #F4774F;
+    border: #CB1104;
     border-radius: 5px
 }
 .promo a{
-    color: #F4774F;
+    color: #CB1104;
     font-size: 15px
 }

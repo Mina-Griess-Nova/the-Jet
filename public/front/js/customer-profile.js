@@ -1,3 +1,17 @@
+$(document).ready(function(){
+    // Add arrow icon for collapse element which is open by default
+    $(".collapse.show").each(function(){
+        $(this).prev(".card-header").find(".fa").addClass("fa-angle-right").removeClass("fa-angle-down");
+    });
+
+    // Toggle arrow right to down icon on show hide of collapse element
+    $(".collapse").on('show.bs.collapse', function(){
+        $(this).prev(".card-header").find(".fa").removeClass("fa-angle-right").addClass("fa-angle-down");
+    }).on('hide.bs.collapse', function(){
+        $(this).prev(".card-header").find(".fa").removeClass("fa-angle-down").addClass("fa-angle-right");
+    });
+});
+
 $('.nav-tabs').on('click', 'li', function() {
     $('.nav-tabs li.active').removeClass('active');
     $(this).addClass('active');

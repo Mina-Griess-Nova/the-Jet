@@ -48,7 +48,6 @@ class DishController extends Controller
      */
     public function show($id)
     {
-
         $dish=Dish::find($id);
         $cook=User::find($dish->users->id);
         $dishes=$cook->dishes;

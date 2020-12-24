@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Addons;
 use App\Models\Cusine;
 use App\Models\Dish;
 use App\Models\User;
@@ -22,7 +23,8 @@ class HomeController extends Controller
         })->get();
         $dishes=Dish::all();
         $cusines=Cusine::all();
-        return view('front.index',compact('users','dishes','cusines'));
+        $addons=Addons::all();
+        return view('front.index',compact('users','dishes','cusines','addons'));
     }
 
     /**

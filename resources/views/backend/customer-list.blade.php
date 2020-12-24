@@ -1,6 +1,57 @@
 @extends('backend.layouts.app')
 
+@push('style')
+    <style>
 
+
+input[type=checkbox] + label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  display: inline-table;
+  width: 10px;
+  height: 10px;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: .2s;
+}
+
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+  background-color: gold;
+  border-color: gold;
+  color: #fff;
+}
+
+input[type=checkbox]:disabled + label:before {
+  transform: scale(1);
+  border-color: #aaa;
+}
+
+input[type=checkbox]:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+</style>
+@endpush
 @section('content')
  <!-- Page Wrapper -->
  <div class="page-wrapper">
@@ -44,7 +95,6 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Address</th>
                                         <th>Phone</th>
                                         <th>Action</th>
                                     </tr>
@@ -56,11 +106,13 @@
                                     <td>
                                         <h2 class="table-avatar">
                                             {{-- <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="" alt="Customer Image"></a> --}}
-                                            <a href="profile.html">{{ $customer->name }}</a>
+                                            {{-- <span id="customer_{{ $customer->id }}" hidden>{{ $customer->id }}</span> --}}
+                                            <input type="checkbox" class="vip_{{ $customer->id }}" id="{{ $customer->id }}" name="vip{{ $customer->id }}" value="{{ $customer->VIP =='1' ? $customer->VIP :'0'  }}"{{ $customer->VIP =='1' ? 'checked' :' '  }} onchange="vip({{ $customer->id }},this)">
+                                            <label for="{{ $customer->id }}">
+                                            <a href="#" style="color:{{ $customer->VIP =='1' ? 'gold' :' '  }}">{{ $customer->name }}</a>
                                         </h2>
                                     </td>
                                     <td>{{ $customer->email }}</td>
-                                    <td>{{ $customer->address }}</td>
                                     <td>{{ $customer->phone }}</td>
                                     <td >
                                         <div class="actions">
@@ -102,8 +154,7 @@
 
                 <form method="POST" action="{{ url('dashboard/customer') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="row form-row">
-                        <div class="col-12 col-sm-12">
+                    <div class="row form-row">customer
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" class="form-control" value="{{ old('name') }}">
@@ -171,10 +222,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-content p-2">
-                        <h4 class="modal-title">Delete</h4>
-                        <p class="mb-4">Are you sure want to delete?</p>
-
+                    <div class="form-content p-2">checkBoxes
                         <form  id="formDelete" action="" method="POST" style="display: inline">
                             @csrf
                             @method('delete')
@@ -197,5 +245,40 @@
         @if (count($errors) > 0)
                 $('#Add_customers').modal('show');
         @endif
+
+        function vip(customer_id,checkbox){
+            var value=document.getElementById(customer_id);
+
+            if(value.checked == true){
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/dashboard/customer/vip/'+customer_id,
+
+                    success:function(data){
+                        value='1';
+
+                    },
+                    error:function(data){
+                    }
+                });
+
+
+            }else{
+                $.ajax({
+                    type: 'GET',
+                    url: '/{{ Config::get('app.locale') }}/dashboard/customer/reset/'+customer_id,
+
+                    success:function(data){
+                        value='0';
+
+                    },
+                    error:function(data){
+                    }
+                });
+            }
+        };
+
+
     </script>
 @endpush

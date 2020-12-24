@@ -3,7 +3,15 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\admin;
+use App\Models\City;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -14,7 +22,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('backend.admins.admin-list');
+        $cities=City::all();
+        $admins=User::whereRoleIs('admin')->get();
+        return view('backend.admins.admin-list',compact('admins','cities'));
     }
 
     /**
@@ -35,7 +45,32 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate=$request->validate([
+            'name'=>'required',
+            'phone'=>'required|regex:/(01)[0-9]{9}/',
+            'email'=>'required|unique:users',
+            'password'=>'required',
+            'city'=>'required',
+            'permission'=>'required|min:1',
+        ]);
+
+
+       $admin= User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'city_id'=>$request->city,
+            'password'=>Hash::make($request->password)
+        ]);
+
+        $admin->attachRole('admin');
+        $permissions= DB::table('permissions')
+        ->whereIn('name', $request->permission)
+        ->get()
+        ->pluck('id');
+
+        $admin->attachPermissions($permissions);
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -69,7 +104,31 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $admin=User::find($id);
+        $validate=$request->validate([
+            'name'=>'required',
+            'phone'=>'required|regex:/(01)[0-9]{9}/|unique:users,id,'.$admin->id,
+            'email'=>'required|unique:users,id,'.$admin->id,
+            'password'=>'required',
+            'city'=>'required',
+            'permission'=>'required|min:1',
+        ]);
+       $admin->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'city_id'=>$request->city,
+            'password'=>Hash::make($request->password)
+        ]);
+
+        $permissions= DB::table('permissions')
+        ->whereIn('name', $request->permission)
+        ->get()
+        ->pluck('id');
+
+        $admin->syncPermissions($permissions);
+
+        return back();
     }
 
     /**
@@ -80,6 +139,11 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_trans=UserTranslation::where('user_id',$id)->delete();
+
+        $user=User::find($id);
+        $user->delete();
+        return back();
+
     }
 }

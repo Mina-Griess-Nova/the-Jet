@@ -44,7 +44,7 @@
 }
 .col-xl-3 .btn ,.sticky-bottom .btn{
    width:80%;
-   background-color:#FD845D;
+   background-color:#CB1104;
    color:#fff;
    font-size:18px
 }
@@ -53,7 +53,7 @@
     justify-content: space-between
 }
 .col-xl-8 .first-row .col-md-10 a{
-    color: #FD845D;
+    color: #CB1104;
     font-size: 18px;
 }
 .col-xl-8 .first-row  .col-md-1{
@@ -63,7 +63,7 @@
     font-size: 10px
 }
 .col-xl-8 .first-row  .col-md-1 .rating{
-    color: #FD845D
+    color: #CB1104
 }
 .col-xl-8 .first-row  .col-md-1 .rating i{
     font-size: small
@@ -90,10 +90,10 @@
     border: 1px solid #cecece
 }
 .col-xl-8 .reviews .fa-star{
-    color: #FD845D
+    color: #CB1104
 }
 .col-xl-8 .map-location h6 span{
-    color: #FD845D
+    color: #CB1104
 }
 
 .col-xl-8 .map-location  #map {
@@ -164,7 +164,7 @@
     line-height: 5px
 }
 .today-dishes i,.future-dishes i{
-    color: #FD845D
+    color: #CB1104
 }
 .sticky-bottom  {
     text-align: center;

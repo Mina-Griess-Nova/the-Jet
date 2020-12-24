@@ -46,7 +46,6 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-
         $validate=$request->validate([
             'name'=>'required|unique:discounts,name',
             'code'=>'required|unique:discounts,code',
@@ -72,7 +71,6 @@ class DiscountController extends Controller
 
 
 
-
         $discount=Discount::create([
             'name'=>$request->name,
             'code'=>$request->code,
@@ -81,16 +79,35 @@ class DiscountController extends Controller
             'discount_type'=>$request->discount_type,
             'activate_from'=>$activate_from,
             'activate_to'=>$activate_to,
-            'dishes'=>serialize($request->dishes),
-            'cusines'=>serialize($request->cusines),
-            'cooks'=>serialize($request->cooks),
-            'sections'=>serialize($request->sections),
+            // 'dishes'=>serialize($request->dishes),
+            // 'cusines'=>serialize($request->cusines),
+            // 'cooks'=>serialize($request->cooks),
+            // 'sections'=>serialize($request->sections),
             'uses'=>$request->uses,
             'orders'=>$request->orders,
             'customers'=>$request->customers,
 
         ]);
-
+        $discount=Discount::where('name',$request->name)->first();
+        if($request->dishes[0] == 'all'){
+            $dishes=Dish::all();
+            foreach($dishes as $dish){
+                $dish->update(['discount_id'=>$discount->id]);
+            }
+            $discount->update([
+                'dishes'=>'all'
+            ]);
+        }else{
+            $arr=[];
+            $dishes=Dish::whereIn('id',$request->dishes)->get();
+            foreach($dishes as $dish){
+                $dish->update(['discount_id'=>$discount->id]);
+                array_push($arr,$dish->name);
+            }
+            $discount->update([
+                'dishes'=>$arr
+            ]);
+        }
         if($discount){
             return response()->json(['success' => true]);
         }else{

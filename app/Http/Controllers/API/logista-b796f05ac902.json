@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "logista-282218",
+  "private_key_id": "b796f05ac902c1d87d7daa3da310e2236b733ff3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDEMI7MIcJ3dvFz\nCQgOy0uS1tsrotbdH+yleiodXsXzDTvpolZTnIolCZHUd1GVBEQUZqIWw0unI1wZ\nkNW2PGOsjA/a0HxigedBO0gmVFGY8vZ4sf2FMd1Q0iTAqCg9kWuHfNDnyG7afWZy\nc8HQ8oMGvHVshrcLN/R3niOUN0pixX0q/arynojNGqXn0RPofKsHoKe6y4Qsj+hS\n1iItF3C7GU3UhHmmeWmE6CMvqZYRx8ma6YIlxH9tcuYfKpnE4YCAPsNig+YpReXD\nN6Cz1aPuQoKAA6APsr85axNv2R+f0sblgPxWwIzuXlR9Zui3Qturu/mXre5wC3Ui\nlaifATq3AgMBAAECggEAR8jKnwdlO8gCHYi68YrSGqbR59v7yUnykTOrcDaqsD1x\n5BEZjBtVcqrXOIn2CFPYwywwd6q6piuqedJEWBstj0dqT7KEKJkGcBhMVHX6qz+P\nDmd170PpCjbx6qo8mxZ35Um2uHBem0RR9WPEkXsClTbksjJyjEDLiu8KbqNybMPX\n3/FcIYX8565+VjJQZJ2X6ur0q5cRcwkUCYYQWvQfwKg9uk6+hLOW4VTmHEJKJCHZ\nkIks4ATdpyT+B9cTDAB1XQJucqUfe1Ecsg6PsJOddvkJ4Ql02DB5SVw86Q2VCDnc\n0mRrLU4ScYHX6/350kuDEnbyD888iKNuFA9zqEqfRQKBgQD8B74cAWd/vGCprrkx\nHxF99WOF1ebYroUtF0PsDXAcFP/2XrQZ2TJWRpA6nGJFIZx/PsBD09+kYWzAkoBb\ngeyN/fTIUXZNmy9wE5pUp1W8BRun8f9ArMwu6gu8Fj5Pp/e3+sOCYQHEetzh6Ufa\nRwf9BIHj0TZ51lmyOpBh+7Dz4wKBgQDHR6ZzZ8H0cBrk/ZBCfvdDa771rgs5njPS\nWvkO0g/vZYxEiBHh+OiOZRfwl1TDbRYpNoFK/W9s7nS0B8F1ezJh7rWIzYiJcw4+\nm5mVqCpUD5RIOJCD0N5WmTjPNZRSEhkQDnmKUXVQoBWtIFlOM7STOqNQ5SEvpZUO\no/Tx6useHQKBgEEq91tieZKr8QqvJS+wauN4+hz3LFPG/KSmKWf2KZD5VR4tasBs\nSvnIES82lKpvgHnejfR76o4kquw4dXwz4ijtC8hoWADFKcT/LJ7LDf4qC/anOmtM\nwxc2aYZe8gnC0uj9rGQgFUbqxgacPXoRd91StwtjY4SpilPtlLvhSuYlAoGBAL79\nqcbzi41VoEEV0BwbCaphaqyWOQXo3Ovf6tHMfB9KKQxJiTIVV/WZaD9bGo8OTu4C\n4hnYGeHCDLG6uSx6fYgku3G44wIw9lcE1Eb93EuiftBU/hSHq4A965eUV2ntFH4y\nEUSC27gBJaU+2ri7j3aH/Zx7bbn3rYtRkmIFb3/1AoGAfgox6ctWgsKOIFYOmzfb\nVDNgKBGCD/7cTBJuwx6iKhNnmbiPg61ZxuXBfkfykYRDWOYXSF6Eq3x+9A2KVLMK\ntc7vJ2IZARhbVYQIjTYX7HhbeZFvJptusGm9KwTMiJosUvbKFRp+uDRb1jcUIqPP\n01grER1sS3YPLTyYU7PjZtY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "logista-282218@appspot.gserviceaccount.com",
+  "client_id": "115179928785104773869",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/logista-282218%40appspot.gserviceaccount.com"
+}

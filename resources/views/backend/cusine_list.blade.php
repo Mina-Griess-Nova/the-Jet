@@ -47,26 +47,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($cusines as $index=>$cusine)
-                                    <tr>
-                                        <td>
-                                            {{ $index+1 }}
-                                        </td>
+                                   @isset($cusines)
+                                   @foreach ($cusines as $index=>$cusine)
+                                   <tr>
+                                       <td>
+                                           {{ $index+1 }}
+                                       </td>
 
-                                        <td>{{ $cusine->name }}</td>
+                                       <td>{{ $cusine->name }}</td>
 
-                                        <td >
-                                            <div class="actions">
-                                                <a id="{{ $cusine->id }}" class="link_update bg-success-light mr-2" data-toggle="modal"  href="#edit_cusines_details" >
-                                                    <i class="fe fe-pencil"></i> Edit
-                                                </a>
-                                                <a id="{{ $cusine->id }}" class="link_delete" data-toggle="modal" href="#delete_modal" data-url=""  class="btn btn-sm btn-danger" style="color: #f00">
-                                                    <i class="fe fe-trash"></i> Delete
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                       <td >
+                                           <div class="actions">
+                                               <a id="{{ $cusine->id }}" class="link_update bg-success-light mr-2" data-toggle="modal"  href="#edit_cusines_details" >
+                                                   <i class="fe fe-pencil"></i> Edit
+                                               </a>
+                                               <a id="{{ $cusine->id }}" class="link_delete" data-toggle="modal" href="#delete_modal" data-url=""  class="btn btn-sm btn-danger" style="color: #f00">
+                                                   <i class="fe fe-trash"></i> Delete
+                                               </a>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   @endforeach
+                                   @endisset
 
                                 </tbody>
                             </table>
@@ -96,12 +98,16 @@
                             @csrf
                             @method('put')
                             <div class="row form-row">
-                                <div class="col-12 col-sm-6">
+                                @foreach (config('translatable.locales') as $locale)
+                                <div class="col-12 col-sm-12">
                                     <div class="form-group">
-                                        <label>cusines</label>
-                                        <input id="name" type="text" name="name" class="form-control" value="">
+                                        <label>@lang('site.'.$locale.'.name')</label>
+                                        @isset($cusine)
+                                        <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ $cusine->translate($locale)->name }}">
+                                        @endisset
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
                         </form>
@@ -123,15 +129,17 @@
             <div class="modal-body">
                 @include('backend.partials.errors')
 
-                <form method="POST" action="{{ url('dashboard/cusine') }}">
+                <form method="POST" action="{{ route('cusine.store') }}">
                     @csrf
                     <div class="row form-row">
+                        @foreach (config('translatable.locales') as $locale)
                         <div class="col-12 col-sm-12">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                <label>{{ trans('site.'.$locale.'.name') }}</label>
+                                <input type="text" name="{{ $locale }}[name]" class="form-control" value="{{ old($locale.'.name') }}">
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     <button type="submit" class="btn btn-otbokhly btn-block">Save</button>
                 </form>
@@ -183,13 +191,13 @@
         $('.link_update').on('click',function(){
             var cusine_id=$(this).attr('id');
 
-            $('#formUpdate').attr('action','/dashboard/cusine/'+cusine_id)
+            $('#formUpdate').attr('action','/{{ Config::get('app.locale') }}/dashboard/cusine/'+cusine_id)
 
         })
         $('.link_delete').on('click',function(){
             var cusine_id=$(this).attr('id');
 
-            $('#formDelete').attr('action','/dashboard/cusine/'+cusine_id)
+            $('#formDelete').attr('action','/{{ Config::get('app.locale') }}/dashboard/cusine/'+cusine_id)
 
         })
 

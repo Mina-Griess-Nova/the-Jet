@@ -15,7 +15,6 @@ class CreateAddonsTable extends Migration
     {
         Schema::create('addons', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->timestamps();
         });
     }

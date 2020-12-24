@@ -16,11 +16,8 @@ class CreateAddressTable extends Migration
         Schema::create('address', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('title')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->string('area')->nullable();
-            $table->string('floor')->nullable();
+            $table->string('coordinates')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

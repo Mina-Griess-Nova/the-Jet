@@ -3,11 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class Cusine extends Model
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+class Cusine extends Model implements TranslatableContract
 {
-    protected $fillable=['name'];
+
+    use Translatable;
+
+
+    protected $guarded = [];
+
+
+    public $translatedAttributes = ['name'];
+
+
 
     public function dishes(){
         return $this->belongsToMany('App\Models\Dish','cusine_dish');

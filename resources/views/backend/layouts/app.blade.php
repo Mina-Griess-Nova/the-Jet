@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr">
+{{-- <html dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}"> --}}
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:07:10 GMT -->
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>TheJet - Dashboard</title>
+        <title>theJet _ Dashboard</title>
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
@@ -32,6 +33,8 @@
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
 
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDst9gRFVsQsqj4-XzWY65uHKT8Ak_RC1E&callback=initMap&libraries=&v=weekly"defer></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 

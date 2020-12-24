@@ -15,7 +15,6 @@ class CreateCusinesTable extends Migration
     {
         Schema::create('cusines', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->timestamps();
         });
     }
